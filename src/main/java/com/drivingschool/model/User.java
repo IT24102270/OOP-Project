@@ -72,7 +72,7 @@ public class User {
             return sb.toString();
         }
         catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException("HAshing algorithm not found",e);
+            throw new RuntimeException("Hashing algorithm not found",e);
         }
     }
 
@@ -86,14 +86,14 @@ public class User {
 
     // other operations
     public void createUser() {
-        System.out.println("Hi "+userName);  // welcome msg should be added
+        System.out.println("Hi "+userName+" Your account has been successfully created.");  // welcome msg should be added
     }
     public void displayUser() {
-        System.out.println("Username "+userName);
-        System.out.println("User id "+userId);
-        System.out.println("User address "+userAddress);
-        System.out.println("Phone number "+phoneNumber);
-        System.out.println("User email "+userEmail);
+        System.out.println("Username      : "+userName);
+        System.out.println("User id       : "+userId);
+        System.out.println("User address  : "+userAddress);
+        System.out.println("Phone number  : "+phoneNumber);
+        System.out.println("User email    : "+userEmail);
 
     }
     public void changePassword(String currentPassword, String newPassword) {
@@ -102,7 +102,7 @@ public class User {
             System.out.println("Password changed successfully!");
         }
         else {
-            System.out.println("Passwords do not match");
+            System.out.println("Error: Incorrect current password!");
         }
     }
     public void changeUsername(String userName) {
@@ -118,7 +118,14 @@ public class User {
         this.userEmail = email;
     }
     public void deleteUser() {
-        System.out.println("User has been removed!");
+        System.out.println("User " +userName+ " has been removed!");
+        this.userName = null;
+        this.userId = null;
+        this.userAddress = null;
+        this.phoneNumber = null;
+        this.userEmail = null;
+        this.password = null;
+        this.role = null;
     }
 
 }
