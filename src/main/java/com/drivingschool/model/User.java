@@ -28,10 +28,10 @@ public class User {
     public String getUserid() {
         return userId;
     }
-    public String getUseremail() {
+    public String getUserEmail() {
         return userEmail;
     }
-    public String getPhonenumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
     public String getRole() {
@@ -39,20 +39,35 @@ public class User {
     }
 
     //setters
-    public void setUsername(String userName) {
-        this.userName = userName; // username allocation to be added , check with existing usernames
+    public void setUserName(String userName) {
+        if (userName != null) {
+            this.userName = userName;
+        }
+        else {
+            System.out.println("Username is empty");
+        }
     }
-    public void setUserid(String userId) {
-        this.userId = userId;    // user id should be automatically generated
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
-    public void setPhonenumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPhoneNumber(String phoneNumber) {
+        if ((phoneNumber != null) && (phoneNumber.length() == 10)) {
+            this.phoneNumber = phoneNumber;
+        }
+        else {
+            System.out.println("Invalid phone number");
+        }
     }
-    public void setUseremail(String userEmail) {
-        this.userEmail = userEmail;
+    public void setUserEmail(String userEmail) {
+        if (userEmail == null || (!userEmail.contains("@") && !userEmail.contains("."))) {
+            System.out.println("Invalid email!");
+        }
+        else {
+            this.userEmail = userEmail.toLowerCase();
+        }
     }
     public void setPassword(String password) {
-        this.password = hashPassword(password); // password should be hashed and saved
+        this.password = hashPassword(password);
     }
     public void setRole(String role) {
         this.role = role;
@@ -61,10 +76,10 @@ public class User {
     //Hashing method
     private String hashPassword(String password) {
         try {
-            MessageDigest md = MessageDigest.getInstance("SHA-1");
+            password = password.trim();                                       // removing spaces if there are
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
             byte[] hashedBytes = md.digest(password.getBytes());
 
-            //bytes >>> hexadecimal String
             StringBuilder sb = new StringBuilder();
             for (byte b : hashedBytes) {
                 sb.append(String.format("%02x", b));
@@ -77,16 +92,16 @@ public class User {
     }
 
     // login logout
-    public boolean login(String userName, String password) {
-        return this.userName.equals(userName) && this.password.equals((hashPassword(password)));
+    public boolean login(String userIDorEmail, String password) {
+        return (this.userId.equals(userIDorEmail) && this.password.equals((hashPassword(password)))) || (this.userEmail.equalsIgnoreCase(userIDorEmail) && this.password.equals((hashPassword(password))));   //used ignore case if user enters their email
     }
     public void logout() {
-        System.out.println("User Logged out");
+        System.out.println("User "+userName+" has logged out!");
     }
 
     // other operations
     public void createUser() {
-        System.out.println("Hi "+userName+" Your account has been successfully created.");  // welcome msg should be added
+        System.out.println("Hi "+userName+" Your account has been successfully created.");
     }
     public void displayUser() {
         System.out.println("Username      : "+userName);
@@ -125,7 +140,7 @@ public class User {
         this.phoneNumber = null;
         this.userEmail = null;
         this.password = null;
-        this.role = null;
+        this.role = null;    // user will be removed from User.txt by filehandler.java
     }
 
 }
