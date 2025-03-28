@@ -31,11 +31,17 @@ public class User {
     public String getUserEmail() {
         return userEmail;
     }
+    public String getUserAddress(){
+        return userAddress;
+    }
     public String getPhoneNumber() {
         return phoneNumber;
     }
     public String getRole() {
         return role;
+    }
+    public String getPassword() {
+        return password;
     }
 
     //setters
