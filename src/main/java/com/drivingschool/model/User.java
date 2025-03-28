@@ -31,6 +31,9 @@ public class User {
     public String getUserEmail() {
         return userEmail;
     }
+    public String getUserAddress() {
+        return userAddress;
+    }
     public String getPhoneNumber() {
         return phoneNumber;
     }
