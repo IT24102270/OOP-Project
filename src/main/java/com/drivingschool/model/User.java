@@ -148,5 +148,4 @@ public class User {
         this.password = null;
         this.role = null;    // user will be removed from User.txt by filehandler.java
     }
-
 }
