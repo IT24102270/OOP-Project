@@ -1,4 +1,5 @@
 package main.java.com.drivingschool.model;
 
-public class Student {
+public class Student extends User{
+    
 }
