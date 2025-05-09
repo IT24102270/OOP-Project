@@ -1,12 +1,15 @@
-package main.java.com.drivingschool.model;
+package com.drivingschool.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Review {
     private String reviewID;
     private String userID;
     private String comment;
     private int rating;
+
+    private static final List<Review> reviews = new ArrayList<>();
 
     public Review(String reviewID, String userID, String comment, int rating) {
         this.reviewID = reviewID;
@@ -15,15 +18,40 @@ public class Review {
         this.rating = rating;
     }
 
-    // Getters
-    public String getReviewID() { return reviewID; }
-    public String getUserID() { return userID; }
-    public String getComment() { return comment; }
-    public int getRating() { return rating; }
+    public static void addReview(Review review) {
+        reviews.add(review);
+    }
 
-    // Add logic methods (you need to implement actual DB logic or storage)
-    public static void addReview(Review review) { /* DB logic */ }
-    public static void updateReview(Review review) { /* DB logic */ }
-    public static void deleteReview(String reviewID) { /* DB logic */ }
-    public static ArrayList<Review> getAllReviews() { return new ArrayList<>(); /* fetch from DB */ }
+    public static void updateReview(Review updatedReview) {
+        for (int i = 0; i < reviews.size(); i++) {
+            if (reviews.get(i).getReviewID().equals(updatedReview.getReviewID())) {
+                reviews.set(i, updatedReview);
+                return;
+            }
+        }
+    }
+
+    public static void deleteReview(String reviewID) {
+        reviews.removeIf(r -> r.getReviewID().equals(reviewID));
+    }
+
+    public static List<Review> getAllReviews() {
+        return reviews;
+    }
+
+    public String getReviewID() {
+        return reviewID;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public int getRating() {
+        return rating;
+    }
 }
