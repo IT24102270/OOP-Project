@@ -1,4 +1,4 @@
-<%@ page import="main.java.com.drivingschool.model.Review" %>
+<%@ page import="com.drivingschool.model.Review" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
