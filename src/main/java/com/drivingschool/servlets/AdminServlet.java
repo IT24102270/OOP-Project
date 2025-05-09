@@ -1,4 +1,4 @@
-package main.java.com.drivingschool.servlets;
+package com.drivingschool.servlets;
 
 import main.java.com.drivingschool.model.Admin;
 import main.java.com.drivingschool.model.User;

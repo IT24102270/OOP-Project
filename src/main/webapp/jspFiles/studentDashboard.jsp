@@ -1,4 +1,4 @@
-<%@ page import="main.java.com.drivingschool.model.User" %>
+<%@ page import="com.drivingschool.model.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     User user = (User) session.getAttribute("currentUser"); // replace with real session user

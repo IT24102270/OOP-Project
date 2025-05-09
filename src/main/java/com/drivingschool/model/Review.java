@@ -1,4 +1,4 @@
-package main.java.com.drivingschool.model;
+package com.drivingschool.model;
 
 public class Review {
 }

@@ -1,6 +1,6 @@
-package main.java.com.drivingschool.servlets;
+package com.drivingschool.servlets;
 
-import main.java.com.drivingschool.model.Instructor;
+import com.drivingschool.model.Instructor;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;

@@ -1,4 +1,4 @@
-package main.java.com.drivingschool.model;
+package com.drivingschool.model;
 import java.security.NoSuchAlgorithmException;
 import java.security.MessageDigest;
 
@@ -10,6 +10,16 @@ public class User {
     private String userEmail;
     private String password;
     private String role;
+
+    public User() {
+        this.userName = "";
+        this.userId = "";
+        this.userAddress = "";
+        this.phoneNumber = "";
+        this.userEmail = "";
+        this.password = "";
+        this.role = "";
+    }
 
     public User(String userName, String userId, String userAddress, String phoneNumber, String userEmail, String password, String role) {
         this.userName = userName;

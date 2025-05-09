@@ -1,4 +1,4 @@
-package main.java.com.drivingschool.servlets;
+package com.drivingschool.servlets;
 
 public class PaymentServlet {
 

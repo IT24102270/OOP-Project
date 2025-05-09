@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="main.java.com.drivingschool.model.Instructor" %>
+<%@ page import="com.drivingschool.model.Instructor" %>
 <%@ page import="java.util.List" %>
 <% System.out.println("Loading instructorDashboard.jsp"); %>
 <!DOCTYPE html>
