@@ -5,109 +5,215 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Driving School</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        .admin-sidebar {
+            background-color: #2c3e50;
+            min-height: 100vh;
+        }
+        .admin-sidebar a {
+            color: white;
+        }
+        .admin-sidebar .nav-link.active {
+            background-color: #3498db;
+        }
+        .action-buttons .btn {
+            margin-right: 5px;
+        }
+    </style>
 </head>
 <body>
-<div class="tabs">
-    <button class="tab active-tab" onclick="showTab('adminTab')">Admin Management</button>
-    <button class="tab" onclick="showTab('userTab')">User Management</button>
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3 col-lg-2 admin-sidebar p-3">
+            <h4 class="text-white text-center mb-4"><i class="bi bi-speedometer2"></i> Dashboard</h4>
+            <ul class="nav nav-pills flex-column">
+                <li class="nav-item">
+                    <a class="nav-link active" data-bs-toggle="tab" href="#adminTab">
+                        <i class="bi bi-person-gear me-2"></i> Admins
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#userTab">
+                        <i class="bi bi-people me-2"></i> Users
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-md-9 col-lg-10 p-4">
+            <div class="tab-content">
+                <!-- Admin Tab -->
+                <div class="tab-pane fade show active" id="adminTab">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h2><i class="bi bi-person-gear"></i> Admin Management</h2>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAdminModal">
+                            <i class="bi bi-plus"></i> Add Admin
+                        </button>
+                    </div>
+                    <table class="table table-striped table-hover">
+                        <thead class="table-dark">
+                        <tr>
+                            <th>Admin ID</th>
+                            <th>User ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <% for (Admin admin : Admin.getAllAdmins()) { %>
+                        <tr>
+                            <td><%= admin.getAdminID() %></td>
+                            <td><%= admin.getUserid() %></td>
+                            <td><%= admin.getUsername() %></td>
+                            <td><%= admin.getUserEmail() %></td>
+                            <td class="action-buttons">
+                                <form action="AdminServlet" method="post" style="display:inline;">
+                                    <input type="hidden" name="action" value="deleteAdmin">
+                                    <input type="hidden" name="adminID" value="<%= admin.getAdminID() %>">
+                                    <button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                        <% } %>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- User Tab -->
+                <div class="tab-pane fade" id="userTab">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h2><i class="bi bi-people"></i> User Management</h2>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
+                            <i class="bi bi-plus"></i> Add User
+                        </button>
+                    </div>
+                    <table class="table table-striped table-hover">
+                        <thead class="table-dark">
+                        <tr>
+                            <th>User ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <% for (User user : Admin.getAllUsers()) { %>
+                        <tr>
+                            <td><%= user.getUserid() %></td>
+                            <td><%= user.getUsername() %></td>
+                            <td><%= user.getUserEmail() %></td>
+                            <td class="action-buttons">
+                                <form action="AdminServlet" method="post" style="display:inline;">
+                                    <input type="hidden" name="action" value="deleteUser">
+                                    <input type="hidden" name="userID" value="<%= user.getUserid() %>">
+                                    <button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                        <% } %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<div id="adminTab" class="tab-content active-content">
-    <h1>Admin Management</h1>
-    <form action="AdminServlet" method="post">
-        <input type="hidden" name="action" value="addAdmin">
-        <input type="text" name="adminID" placeholder="Admin ID" required>
-        <input type="text" name="userID" placeholder="User ID" required>
-        <input type="text" name="name" placeholder="Name" required>
-        <input type="text" name="address" placeholder="Address">
-        <input type="text" name="phone" placeholder="Phone">
-        <input type="email" name="email" placeholder="Email" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <button type="submit">Save Admin</button>
-    </form>
-
-    <h2>Existing Admins</h2>
-    <table>
-        <tr>
-            <th>Admin ID</th>
-            <th>User ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Actions</th>
-        </tr>
-        <%
-            for (Admin admin : Admin.getAllAdmins()) {
-        %>
-        <tr>
-            <td><%= admin.getAdminID() %></td>
-            <td><%= admin.getUserid() %></td>
-            <td><%= admin.getUsername() %></td>
-            <td><%= admin.getUserEmail() %></td>
-            <td>
-                <form action="AdminServlet" method="post" style="display:inline;">
-                    <input type="hidden" name="action" value="deleteAdmin">
-                    <input type="hidden" name="adminID" value="<%= admin.getAdminID() %>">
-                    <button type="submit">Delete</button>
-                </form>
-            </td>
-        </tr>
-        <%
-            }
-        %>
-    </table>
+<!-- Admin Modal -->
+<div class="modal fade" id="addAdminModal" tabindex="-1">
+    <div class="modal-dialog">
+        <form action="AdminServlet" method="post" class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">Add Admin</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" name="action" value="addAdmin">
+                <div class="mb-3">
+                    <label class="form-label">Admin ID</label>
+                    <input type="text" name="adminID" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">User ID</label>
+                    <input type="text" name="userID" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Name</label>
+                    <input type="text" name="name" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Address</label>
+                    <input type="text" name="address" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Phone</label>
+                    <input type="text" name="phone" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" name="email" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input type="password" name="password" class="form-control" required>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </form>
+    </div>
 </div>
 
-<div id="userTab" class="tab-content">
-    <h1>User Management</h1>
-    <form action="AdminServlet" method="post">
-        <input type="hidden" name="action" value="addUser">
-        <input type="text" name="userID" placeholder="User ID" required>
-        <input type="text" name="name" placeholder="Name" required>
-        <input type="text" name="address" placeholder="Address">
-        <input type="text" name="phone" placeholder="Phone">
-        <input type="email" name="email" placeholder="Email" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <button type="submit">Save User</button>
-    </form>
-
-    <h2>Existing Users</h2>
-    <table>
-        <tr>
-            <th>User ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Actions</th>
-        </tr>
-        <%
-            for (User user : Admin.getAllUsers()) {
-        %>
-        <tr>
-            <td><%= user.getUserid() %></td>
-            <td><%= user.getUsername() %></td>
-            <td><%= user.getUserEmail() %></td>
-            <td>
-                <form action="AdminServlet" method="post" style="display:inline;">
-                    <input type="hidden" name="action" value="deleteUser">
-                    <input type="hidden" name="userID" value="<%= user.getUserid() %>">
-                    <button type="submit">Delete</button>
-                </form>
-            </td>
-        </tr>
-        <%
-            }
-        %>
-    </table>
+<!-- User Modal -->
+<div class="modal fade" id="addUserModal" tabindex="-1">
+    <div class="modal-dialog">
+        <form action="AdminServlet" method="post" class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">Add User</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" name="action" value="addUser">
+                <div class="mb-3">
+                    <label class="form-label">User ID</label>
+                    <input type="text" name="userID" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Name</label>
+                    <input type="text" name="name" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Address</label>
+                    <input type="text" name="address" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Phone</label>
+                    <input type="text" name="phone" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" name="email" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input type="password" name="password" class="form-control" required>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </form>
+    </div>
 </div>
 
-<script>
-    function showTab(tabId) {
-        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active-content'));
-        document.getElementById(tabId).classList.add('active-content');
-        document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active-tab'));
-        document.querySelector(`[onclick="showTab('${tabId}')"]`).classList.add('active-tab');
-    }
-</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
