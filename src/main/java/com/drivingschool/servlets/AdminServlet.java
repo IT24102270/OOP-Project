@@ -1,7 +1,7 @@
 package com.drivingschool.servlets;
 
-import main.java.com.drivingschool.model.Admin;
-import main.java.com.drivingschool.model.User;
+import com.drivingschool.model.Admin;
+import com.drivingschool.model.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
