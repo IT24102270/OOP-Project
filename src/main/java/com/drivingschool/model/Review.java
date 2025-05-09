@@ -1,47 +1,29 @@
+package main.java.com.drivingschool.model;
+
+import java.util.ArrayList;
+
 public class Review {
-    private String username;
-    private int rating;
+    private String reviewID;
+    private String userID;
     private String comment;
+    private int rating;
 
-    // Constructor to create a new review
-    public Review(String username, int rating, String comment) {
-        this.username = username;
-        this.rating = rating;
+    public Review(String reviewID, String userID, String comment, int rating) {
+        this.reviewID = reviewID;
+        this.userID = userID;
         this.comment = comment;
+        this.rating = rating;
     }
 
-    // For displaying the review nicely in the UI
-    public String toString() {
-        return username + " (" + rating + "/5): " + comment;
-    }
+    // Getters
+    public String getReviewID() { return reviewID; }
+    public String getUserID() { return userID; }
+    public String getComment() { return comment; }
+    public int getRating() { return rating; }
 
-    // Converts the review to a format suitable for saving in a file
-    public String toFileString() {
-        return username + "|" + rating + "|" + comment;
-    }
-
-    // Converts a line from the file back into a Review object
-    public static Review fromFileString(String line) {
-        String[] parts = line.split("\\|");
-        if (parts.length < 3) return null;
-        try {
-            int rating = Integer.parseInt(parts[1]);
-            return new Review(parts[0], rating, parts[2]);
-        } catch (NumberFormatException e) {
-            return null;
-        }
-    }
-
-    // Optional: Getters if needed in future
-    public String getUsername() {
-        return username;
-    }
-
-    public int getRating() {
-        return rating;
-    }
-
-    public String getComment() {
-        return comment;
-    }
+    // Add logic methods (you need to implement actual DB logic or storage)
+    public static void addReview(Review review) { /* DB logic */ }
+    public static void updateReview(Review review) { /* DB logic */ }
+    public static void deleteReview(String reviewID) { /* DB logic */ }
+    public static ArrayList<Review> getAllReviews() { return new ArrayList<>(); /* fetch from DB */ }
 }
