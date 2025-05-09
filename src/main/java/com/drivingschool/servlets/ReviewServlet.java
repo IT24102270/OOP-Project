@@ -1,6 +1,6 @@
-package main.java.com.drivingschool.servlets;
+package com.drivingschool.servlets;
 
-import main.java.com.drivingschool.model.Review;
+import com.drivingschool.model.Review;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
