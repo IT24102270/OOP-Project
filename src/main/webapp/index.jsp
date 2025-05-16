@@ -1,13 +1,9 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>JSP - Hello World</title>
-</head>
-<body>
-<h1><%= "Hello World!" %>
-</h1>
-<br/>
-<a href="jsp/registerStudent.jsp" class="text-blue-600 hover:underline">Back to Home</a>
-</body>
-</html>
+<%--
+  Created by IntelliJ IDEA.
+  User: Rajika
+  Date: 2025-05-11
+  Time: 6:34 PM
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<% response.sendRedirect("jsp/login.jsp"); %>
